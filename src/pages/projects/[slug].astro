@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+
+export async function getStaticPaths() {
+  return projects.map(p => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout title={project.title}>
+  <article class="py-16 max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+      {project.title}
+    </h1>
+
+    <div class="flex flex-wrap gap-2 mb-6">
+      {project.tech.map(t => (
+        <span class="px-3 py-1 text-sm bg-gray-800 rounded-full">{t}</span>
+      ))}
+    </div>
+
+    <p class="text-gray-300 leading-relaxed">{project.content}</p>
+  </article>
+</BaseLayout>

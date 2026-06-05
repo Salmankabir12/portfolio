@@ -1,0 +1,41 @@
+---
+import { sanityClient } from '../../lib/sanity'
+import { getAllPostsQuery, getPostBySlugQuery } from '../../lib/queries'
+import { PortableText } from '@portabletext/react'
+
+export async function getStaticPaths() {
+  const posts = await sanityClient.fetch(getAllPostsQuery)
+
+  return posts.map((post: any) => ({
+    params: { slug: post.slug.current },
+    props: { slug: post.slug.current },
+  }))
+}
+
+const { slug } = Astro.props
+
+const post = await sanityClient.fetch(getPostBySlugQuery, { slug })
+
+if (!post) {
+  throw new Error('Post not found')
+}
+---
+
+<article class="max-w-3xl mx-auto py-10">
+  <h1 class="text-3xl font-bold mb-2">{post.title}</h1>
+  <p class="text-sm text-gray-500 mb-4">
+    {new Date(post.publishedAt).toLocaleDateString()}
+  </p>
+
+  {post.tags && (
+    <div class="flex gap-2 flex-wrap mb-6">
+      {post.tags.map((tag: string) => (
+        <span class="text-xs bg-gray-200 px-2 py-1 rounded">{tag}</span>
+      ))}
+    </div>
+  )}
+
+  <div class="prose">
+    <PortableText value={post.body} />
+  </div>
+</article>

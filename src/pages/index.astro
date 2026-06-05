@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/projects';
+---
+<BaseLayout title="Home">
+  <section class="relative text-center py-24 overflow-hidden">
+    <div class="absolute inset-0 flex justify-center items-center pointer-events-none">
+      <div class="w-[500px] h-[500px] bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 opacity-20 blur-3xl animate-pulse"></div>
+    </div>
+    <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_200%]">
+      Salman kabir
+    </h1>
+    <p class="mt-4 text-xl text-gray-400">Full Stack Developer</p>
+    <p class="mt-6 max-w-2xl mx-auto text-gray-400">
+      Full stack developer specializing in building fast, scalable applications with exceptional user experiences.
+    </p>
+    <div class="mt-8 flex justify-center gap-4">
+      <a href="#projects" class="px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500 hover:opacity-90 transition">View Projects</a>
+      <a href="/contact" class="px-6 py-3 rounded-lg border border-gray-700 hover:bg-gray-800 transition">Contact Me</a>
+    </div>
+  </section>
+
+  <section id="projects" class="py-16">
+    <h2 class="text-3xl font-semibold mb-8">Projects</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((p) => (
+        <a href={`/projects/${p.slug}`} class="block p-6 bg-gray-900 border border-gray-800 rounded-xl hover:-translate-y-1 hover:border-indigo-500 transition">
+          <h3 class="text-xl font-semibold mb-2">{p.title}</h3>
+          <p class="text-gray-400 mb-4">{p.description}</p>
+          <div class="flex flex-wrap gap-2 mb-3">
+            {p.techStack.map(t => (
+              <span class="text-xs px-2 py-1 bg-gray-800 rounded">{t}</span>
+            ))}
+          </div>
+          <span class="text-indigo-400">View Project →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-16 text-center">
+    <h2 class="text-3xl font-semibold mb-6">Skills</h2>
+    <div class="flex flex-wrap justify-center gap-3">
+      {["TypeScript","React","Astro","Node.js","PostgreSQL","Redis","Tailwind","Docker"].map((skill) => (
+        <span class="px-4 py-2 bg-gray-800 rounded-full text-sm hover:bg-gray-700 transition hover:scale-105">
+          {skill}
+        </span>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
