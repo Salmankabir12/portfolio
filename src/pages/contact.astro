@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Contact">
   <section class="py-16 flex justify-center">
-    <div class="w-full max-w-xl p-8 bg-gray-900 border border-gray-800 rounded-xl">
+    <div class="w-full max-w-xl p-8 bg-(--surface-elevated) border border-(--border) rounded-xl">
       <h1 class="text-3xl font-semibold mb-6">Contact Me</h1>
 
       <form id="contact-form" class="space-y-4">
@@ -12,21 +12,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           name="name"
           placeholder="Name"
           required
-          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          class="w-full p-3 rounded-lg bg-(--surface-raised) border border-(--border) focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-(--text-muted)"
         />
         <input
           type="email"
           name="email"
           placeholder="Email"
           required
-          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          class="w-full p-3 rounded-lg bg-(--surface-raised) border border-(--border) focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-(--text-muted)"
         />
         <textarea
           name="message"
           placeholder="Message"
           rows="5"
           required
-          class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          class="w-full p-3 rounded-lg bg-(--surface-raised) border border-(--border) focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-(--text-muted)"
         ></textarea>
         <button
           type="submit"

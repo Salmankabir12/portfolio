@@ -16,11 +16,11 @@ const { project } = Astro.props;
     </h1>
 
     <div class="flex flex-wrap gap-2 mb-6">
-      {project.tech.map(t => (
-        <span class="px-3 py-1 text-sm bg-gray-800 rounded-full">{t}</span>
+      {project.techStack.map(t => (
+        <span class="px-3 py-1 text-sm bg-(--tag) text-(--tag-text) rounded-full">{t}</span>
       ))}
     </div>
 
-    <p class="text-gray-300 leading-relaxed">{project.content}</p>
+    <p class="text-(--text-secondary) leading-relaxed">{project.content}</p>
   </article>
 </BaseLayout>

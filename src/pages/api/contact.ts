@@ -37,9 +37,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
       const resend = new Resend(env.RESEND_API_KEY)
       const timestamp = new Date().toISOString()
 
+      const from = env.FROM_EMAIL || 'onboarding@resend.dev'
+
       // Email 1: notify owner
       await resend.emails.send({
-        from: 'onboarding@resend.dev',
+        from,
         to: env.CONTACT_EMAIL,
         subject: `New contact from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}\n\nTime: ${timestamp}`,
@@ -47,7 +49,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
       // Email 2: confirmation to visitor
       await resend.emails.send({
-        from: 'onboarding@resend.dev',
+        from,
         to: email,
         subject: `Thanks for reaching out, ${name}!`,
         text: `Hi ${name},\n\nThanks for your message. I received it and will get back to you soon.\n\nBest,\nSalman kabir`,

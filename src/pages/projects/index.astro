@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+---
+
+<BaseLayout title="Projects">
+  <section class="py-10">
+    <h1 class="text-3xl font-bold mb-2">Projects</h1>
+    <p class="text-(--text-muted) mb-10">Things I've built.</p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((p) => (
+        <a href={`/projects/${p.slug}`} class="block p-6 bg-(--surface-elevated) border border-(--border) rounded-xl hover:-translate-y-1 hover:border-indigo-500 transition">
+          <h2 class="text-xl font-semibold mb-2">{p.title}</h2>
+          <p class="text-(--text-muted) mb-4">{p.description}</p>
+          <div class="flex flex-wrap gap-2 mb-3">
+            {p.techStack.map(t => (
+              <span class="text-xs px-2 py-1 bg-(--tag) text-(--tag-text) rounded">{t}</span>
+            ))}
+          </div>
+          <span class="text-indigo-500">View Project →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
