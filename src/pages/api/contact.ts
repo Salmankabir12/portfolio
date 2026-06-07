@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
-import { Resend } from 'resend'
+import { env } from 'cloudflare:workers'
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
     const contentType = request.headers.get('content-type') || ''
 
@@ -23,44 +23,47 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return new Response(JSON.stringify({ error: 'Missing fields' }), { status: 400 })
     }
 
-    // @ts-ignore Cloudflare env binding
-    const env = locals.runtime.env
     const db = env.DB
 
-    await db
+    if (!db) return new Response(JSON.stringify({ error: 'DB binding missing' }), { status: 500 })
+
+    const result = await db
       .prepare('INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)')
       .bind(name, email, message)
       .run()
 
-    // Send emails (non-blocking for form success)
+    if (!result.success) {
+      return new Response(JSON.stringify({ error: 'DB insert failed', detail: result.error }), { status: 500 })
+    }
+
+    const timestamp = new Date().toISOString()
+    const from = env.FROM_EMAIL || 'onboarding@resend.dev'
+
     try {
-      const resend = new Resend(env.RESEND_API_KEY)
-      const timestamp = new Date().toISOString()
-
-      const from = env.FROM_EMAIL || 'onboarding@resend.dev'
-
-      // Email 1: notify owner
-      await resend.emails.send({
-        from,
-        to: env.CONTACT_EMAIL,
-        subject: `New contact from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}\n\nTime: ${timestamp}`,
+      const resp = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from,
+          to: env.CONTACT_EMAIL,
+          subject: `New contact from ${name}`,
+          text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}\n\nTime: ${timestamp}`,
+        }),
       })
-
-      // Email 2: confirmation to visitor
-      await resend.emails.send({
-        from,
-        to: email,
-        subject: `Thanks for reaching out, ${name}!`,
-        text: `Hi ${name},\n\nThanks for your message. I received it and will get back to you soon.\n\nBest,\nSalman kabir`,
-      })
-    } catch (emailErr) {
-      // Swallow email errors so the form still succeeds
-      console.error('Email send failed', emailErr)
+      if (!resp.ok) {
+        const body = await resp.text()
+        console.error('Resend error:', resp.status, body)
+      }
+    } catch (e) {
+      console.error('Email fetch error:', e)
     }
 
     return new Response(JSON.stringify({ success: true }), { status: 200 })
   } catch (err) {
-    return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 })
+    const msg = err instanceof Error ? err.message : String(err)
+    return new Response(JSON.stringify({ error: msg }), { status: 500 })
   }
 }
