@@ -33,5 +33,12 @@ export const projects = [
     description: "Full-stack healthcare management system with PHP, MySQL, and Bootstrap featuring appointment booking, queue management, and medical records.",
     techStack: ["PHP", "MySQL", "Bootstrap", "JavaScript"],
     content: "A web-based healthcare management system with patient/doctor/admin portals. Features include token-based queue management, appointment booking with conflict detection, medical history tracking, and role-based dashboards. Built with prepared statements for SQL injection prevention and bcrypt password hashing. View on GitHub at github.com/Salmankabir12/Database-Management."
+  },
+  {
+    slug: "autodiff",
+    title: "Autodiff",
+    description: "A minimal autograd engine built from scratch in Python to understand automatic differentiation under the hood.",
+    techStack: ["Python", "Autograd", "NumPy"],
+    content: "A minimal automatic differentiation engine for scalar computations implemented from scratch in Python. Every arithmetic operation builds a directed acyclic graph (DAG) of Value nodes that stores gradients and supports backpropagation through the chain rule. Includes neural network building blocks (Neuron, Layer, MLP), an SGD optimizer, and computational graph visualization with Graphviz. Built to understand what's really happening when you call .backward() in PyTorch. View on GitHub at github.com/Salmankabir12/autodiff."
   }
 ];
