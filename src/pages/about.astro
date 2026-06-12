@@ -3,8 +3,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="About">
   <section class="py-16 grid md:grid-cols-2 gap-10 items-center">
-    <div class="w-full h-64 md:h-80 bg-(--surface-raised) rounded-xl flex items-center justify-center text-6xl">
-      👨‍💻
+    <div class="w-full h-64 md:h-80 bg-(--surface-raised) rounded-xl flex items-center justify-center overflow-hidden relative">
+      <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-cyan-500/5"></div>
+      <svg class="w-28 h-28 relative z-10" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="code-grad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#6366f1"/>
+            <stop offset="50%" stop-color="#a855f7"/>
+            <stop offset="100%" stop-color="#06b6d4"/>
+          </linearGradient>
+        </defs>
+        <!-- angled bracket open -->
+        <path d="M35 45L20 60L35 75" stroke="url(#code-grad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- angled bracket close -->
+        <path d="M85 45L100 60L85 75" stroke="url(#code-grad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- slash -->
+        <line x1="68" y1="35" x2="52" y2="85" stroke="url(#code-grad)" stroke-width="6" stroke-linecap="round"/>
+        <!-- decorative dots -->
+        <circle cx="60" cy="100" r="3" fill="#6366f1" opacity="0.3"/>
+        <circle cx="48" cy="96" r="2" fill="#a855f7" opacity="0.2"/>
+        <circle cx="72" cy="96" r="2" fill="#06b6d4" opacity="0.2"/>
+      </svg>
     </div>
     <div>
       <h1 class="text-4xl font-bold mb-4">Salman kabir</h1>
