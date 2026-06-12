@@ -34,7 +34,7 @@ FROM_EMAIL=contact@yourdomain.com
 
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name=dev
+npx wrangler pages deploy dist --project-name=intro
 ```
 
 ## Studio

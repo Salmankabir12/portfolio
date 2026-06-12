@@ -1,9 +1,9 @@
-name = "dev"
+name = "intro"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "./dist"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "dev-contacts"
+database_name = "portfolio-contacts"
 database_id = "3018b6a6-80a1-4c03-b023-705265235179"
