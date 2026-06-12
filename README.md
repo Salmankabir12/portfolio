@@ -1,4 +1,4 @@
-# Portfolio — Salman Kabir
+# dev — Salman Kabir
 
 Personal portfolio site built with [Astro](https://astro.build), deployed on [Cloudflare Pages](https://pages.cloudflare.com).
 
@@ -34,7 +34,7 @@ FROM_EMAIL=contact@yourdomain.com
 
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name=portfolio
+npx wrangler pages deploy dist --project-name=dev
 ```
 
 ## Studio
